@@ -1,11 +1,20 @@
 const express = require('express')
 const consola = require('consola')
+const morgan = require('morgan')
+const bodyParser = require('body-parser')
+
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
+const api = require('./route/api')
 config.dev = !(process.env.NODE_ENV === 'production')
+
+app.use(morgan('tiny'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use('/api', api)
 
 async function start() {
   // Init Nuxt.js

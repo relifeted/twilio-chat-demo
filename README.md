@@ -1,10 +1,10 @@
-# twilio-test
+# twilio-chat-demo
 
 > My astounding Nuxt.js project
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ yarn install
 

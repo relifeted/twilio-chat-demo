@@ -1,7 +1,13 @@
+require('dotenv').config()
+
 const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
+  env: {
+    API_URL: process.env.BASE_URL || 'http://localhost:3000',
+    API_URL_BROWSER: ''
+  },
 
   /*
    ** Headers of the page
@@ -24,12 +30,17 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: ['@/assets/style.css'],
+  css: [
+    // '@/assets/style.css'
+  ],
 
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    // '~/plugins/axios',
+    { src: '~/plugins/fingerprintjs2', ssr: false }
+  ],
 
   /*
    ** Nuxt.js modules
@@ -38,13 +49,23 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+
+    '@nuxtjs/dotenv',
+
+    'cookie-universal-nuxt'
   ],
+  bootstrapVue: {
+    bootstrapCSS: true, // or `css`
+    bootstrapVueCSS: true // or `bvCSS`
+  },
   /*
    ** Axios module configuration
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    browserBaseURL: ''
   },
 
   /*
