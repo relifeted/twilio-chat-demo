@@ -10,10 +10,10 @@ export const mutations = {
     state,
     { channelName, attributes, members, messages, messagesCount }
   ) {
-    console.log('attributes:', attributes)
-    console.log('members:', members)
-    console.log('messages:', messages)
-    console.log('messagesCount:', messagesCount)
+    // console.log('attributes:', attributes)
+    // console.log('members:', members)
+    // console.log('messages:', messages)
+    // console.log('messagesCount:', messagesCount)
     const info = {
       attributes,
       members,

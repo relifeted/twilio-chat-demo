@@ -4,21 +4,7 @@
       <b-card v-if="!userNameExists" no-body>
         <div slot="header">{{ userName }} @ {{ channelName }}</div>
         <b-card-body v-chat-scroll class="channel-body">
-          <b-list-group>
-            <b-list-group-item
-              v-for="message in messages"
-              :key="message.sid"
-              class="container-fluid"
-            >
-              <b-row>{{ message.author }}:</b-row>
-              <b-row>
-                <b-col class="text-right">{{ message.body }}</b-col>
-              </b-row>
-              <b-row>
-                <b-col class="text-right">{{ message.dateUpdated }}</b-col>
-              </b-row>
-            </b-list-group-item>
-          </b-list-group>
+          <message-list :channel-name="channelName" />
         </b-card-body>
         <b-form slot="footer" inline>
           <b-form-input
@@ -37,12 +23,17 @@
 import { Client } from 'twilio-chat'
 import Vue from 'vue'
 import VueChatScroll from 'vue-chat-scroll'
+
+import MessageList from '~/components/MessageList.vue'
+
 Vue.use(VueChatScroll)
 
 export default {
   loading: true,
   middleware: 'joinChannel',
-  components: {},
+  components: {
+    MessageList
+  },
   data() {
     const userName = this.$cookies.get('userName')
     const channelName = this.$route.params.channel
@@ -96,7 +87,7 @@ export default {
     try {
       await channel.join()
     } catch (err) {
-      console.warn('join channel error:', err)
+      console.warn('join channel error:', err.message)
     }
     await store.dispatch('getChannelMessages', {
       channelName: route.params.channel,
@@ -111,7 +102,7 @@ export default {
     try {
       await this.channel.join()
     } catch (err) {
-      console.warn('join channel error:', err)
+      console.warn('join channel error:', err.message)
     }
     this.channel.on('messageAdded', message => {
       console.log('messageAdded:', message.body)
