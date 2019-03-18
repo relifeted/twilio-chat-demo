@@ -57,22 +57,6 @@ export default {
     },
     deviceFingerprint() {
       return this.$store.state.channel.deviceFingerprint
-    },
-    attributes() {
-      const channelName = this.$route.params.channel
-      return this.$store.state.channel[channelName].attributes
-    },
-    members() {
-      const channelName = this.$route.params.channel
-      return this.$store.state.channel[channelName].members
-    },
-    messages() {
-      const channelName = this.$route.params.channel
-      return this.$store.state.channel[channelName].messages
-    },
-    messagesCount() {
-      const channelName = this.$route.params.channel
-      return this.$store.state.channel[channelName].messagesCount
     }
   },
   async fetch({ app, route, store }) {
